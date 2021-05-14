@@ -11,10 +11,9 @@ const Login = () => {
         error: null,
         isLogging: false
     });
-    const { login, user } = useAuth();
+    const { login } = useAuth();
     const history = useHistory();
 
-console.log("user",user && user);
     const handleChange = (event) => {
         const { value, name } = event.target;
         setLoginState(prevState => ({
