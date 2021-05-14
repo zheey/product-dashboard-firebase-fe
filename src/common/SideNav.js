@@ -1,8 +1,10 @@
 import React from 'react';
 import Avatar from './Avatar';
 import { NavLink } from 'react-router-dom';
+import { useAuth } from '../context/AuthContext';
 
 const SideNav = () => {
+    const { userData } = useAuth();
     return (
         <nav className="sideNav">
             <Avatar image="https://images.careerfoundry.com/public/logo/cf_logo_min_full.svg"/>

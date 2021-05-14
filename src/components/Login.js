@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import TextField from "../common/TextField";
 import Button from "../common/Button";
-import { useAuth } from "../common/AuthContext";
+import { useAuth } from "../context/AuthContext";
 import { useHistory } from "react-router-dom";
 
 const Login = () => {
