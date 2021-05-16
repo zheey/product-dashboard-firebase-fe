@@ -5,6 +5,7 @@ import "./stylesheet/main.scss";
 import { AuthProvider } from "./context/AuthContext";
 import Dashboard from "./components/Dashboard";
 import PrivateRoute from "./common/PrivateRoute";
+import { OrderProvider } from "./context/OrderContext";
 
 function App() {
   return (
@@ -12,8 +13,10 @@ function App() {
      <BrowserRouter>
       <AuthProvider>
         <Switch>
-          <Route path={"/login"} exact component={Login}/>
-          <PrivateRoute path={"/"} component={Dashboard}/>
+          <OrderProvider>
+            <Route path={"/login"} exact component={Login}/>
+            <PrivateRoute path={"/"} component={Dashboard}/>
+          </OrderProvider>
         </Switch>
       </AuthProvider>
      </BrowserRouter>

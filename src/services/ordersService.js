@@ -1,6 +1,6 @@
 import { firebasedb } from "../firebase";
 
-export const productService = {
+export const orderService = {
     getProducts
 };
 

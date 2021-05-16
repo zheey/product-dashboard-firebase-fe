@@ -1,12 +1,14 @@
 import React from "react";
 import {Switch, Route} from "react-router-dom";
-import Products from "../components/Products";
+import Orders from "../components/Orders";
+import OrderDetails from "../components/OrderDetails";
 
 const Main = ({onClickAction}) => {
     return(
         <>
             <Switch>
-                <Route exact path={'/products'} component={Products}/>
+                <Route exact path={'/orders'} component={Orders}/>
+                <Route exact path={'/orders/:id'} component={OrderDetails}/>
             </Switch>
         </>
     )

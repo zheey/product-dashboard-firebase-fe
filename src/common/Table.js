@@ -31,6 +31,7 @@ const Table = ({
               headerList={headerList}
               key={rowIndex}
               onClickAction={onClickAction}
+              link={`/orders/${rowData.id}`}
             />
           })}
       </tbody>

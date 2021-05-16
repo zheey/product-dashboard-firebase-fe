@@ -1,6 +1,8 @@
 import React from 'react';
+import { Link } from "react-router-dom";
+import OrderDetails from '../components/OrderDetails';
 
-const TableRow = ({ rowData, headerList, rowIndex, onClickAction, showAction }) => {
+const TableRow = ({ rowData, headerList, rowIndex, onClickAction, showAction, link }) => {
     return(
         <tr className="table-row" key={rowIndex}>
             <td className="flex-basis-5"> {rowIndex + 1} </td>
@@ -13,9 +15,14 @@ const TableRow = ({ rowData, headerList, rowIndex, onClickAction, showAction }) 
                             {
                                 rowData.hasOwnProperty(headerKey) ?
                                     rowData[headerKey].length > 0 ?
-                                        rowData[headerKey]
-                                        :
-                                        '-'
+                                        header.link ?
+                                            <Link to={link}>
+                                                { rowData[headerKey] }
+                                            </Link>
+                                            :
+                                            rowData[headerKey]
+                                            :
+                                            '-'
                                     :
                                     '-'
                             }
