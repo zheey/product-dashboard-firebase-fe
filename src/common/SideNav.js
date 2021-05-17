@@ -5,7 +5,7 @@ import { NavLink } from 'react-router-dom';
 const SideNav = () => {
     return (
         <nav className="sideNav">
-            <Avatar image="https://images.careerfoundry.com/public/logo/cf_logo_min_full.svg"/>
+            <Avatar image="https://www.construyo.de/_next/image?url=%2Fimg%2Flogo.png&w=3840&q=75"/>
             <div className="navLink-wrapper">
                 <NavLink to="/orders" activeClassName="link-active" exact={true}>
                         Orders

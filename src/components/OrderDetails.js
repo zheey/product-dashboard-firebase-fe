@@ -6,7 +6,7 @@ import Button from "../common/Button";
 import { orderService } from "../services/ordersService";
 
 const OrderDetails = ({ match, data }) => {
-  const [order, setOrder] = useState({});
+  const [order, setOrder] = useState(null);
   const [orderId, setOrderId] = useState({});
   const [editInput, setEditInput] = useState(false);
   const [editData, setEditData] = useState({});
@@ -18,11 +18,11 @@ const OrderDetails = ({ match, data }) => {
   }, [match.params.id]);
 
   useEffect(() => {
-    if (orderId) {
+    if (orderId && !order) {
       const orderData = getOrderById(orderId);
       orderData && setOrder(orderData);
     }
-  }, [getOrderById, match.params.id, orderId]);
+  }, [getOrderById, match.params.id, orderId, order]);
 
   const handleClick = () => {
     setEditInput(!editInput);
@@ -40,15 +40,19 @@ const OrderDetails = ({ match, data }) => {
     });
   };
 
+  const retrieveOrder = async() => {
+    const orderData = await updateOrder(order, order._id);
+    setOrder(orderData);
+  };
+
   const handleOrderEdit = (event) => {
       event.preventDefault();
     setEditing(true);
     orderService.editOrders(order, order._id).then(
-      order => {
-        updateOrder(order._id);
+      updatedOrder => {
+        retrieveOrder();
         setEditing(false);
         handleClick();
-        setOrderId(match.params.id)
       },
       error => {
         setEditing(false);
@@ -71,7 +75,7 @@ const OrderDetails = ({ match, data }) => {
         <div className="deails-wrapper">
           <ListDetails
             label="Title"
-            value={order.title}
+            value={order ? order.title : ''}
             edit={editInput}
             onHandleChange={handleChange}
             type="text"
@@ -79,15 +83,15 @@ const OrderDetails = ({ match, data }) => {
           />
           <ListDetails
             label="Booking Date"
-            value={order.bookingDate}
+            value={order ? order.bookingDate : ''}
             edit={editInput}
             onHandleChange={handleChange}
             type="date"
             name="bookingDate"
             dataType="date"
           />
-          <ListDetails label="Address" value={order.address} dataType="address"/>
-          <ListDetails label="Customer" value={order.customer} dataType="customer"/>
+          <ListDetails label="Address" value={order ? order.address : ''} dataType="address"/>
+          <ListDetails label="Customer" value={order ? order.customer : ''} dataType="customer"/>
         </div>
         {editInput && (
           <div className="edit-form">

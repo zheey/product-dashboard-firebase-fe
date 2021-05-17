@@ -37,6 +37,7 @@ export const OrderProvider = ({ children }) => {
       return order;
     });
     setOrders(updatedOrders);
+    return updatedOrders.find(order => order._id === orderId)
   };
 
   const value = {
