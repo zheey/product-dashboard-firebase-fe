@@ -7,7 +7,7 @@ const PrivateRoute = ({ component: Component, ...rest }) => {
   let currentUser = user;
   currentUser = JSON.parse(localStorage.getItem('user'));
 
-console.log("user", user)
+console.log("user", currentUser)
   return (
     <Route
       {...rest}

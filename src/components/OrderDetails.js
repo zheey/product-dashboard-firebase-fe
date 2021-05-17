@@ -2,19 +2,61 @@ import React, { useEffect, useState } from "react";
 import ListDetails from "../common/ListDetails";
 import BreadCrumb from "../common/BreadCrumb";
 import { useOrder } from "../context/OrderContext";
+import Button from "../common/Button";
+import { orderService } from "../services/ordersService";
 
 const OrderDetails = ({ match, data }) => {
-    const [order, setOrder] = useState(null);
-    const { getOrderById } = useOrder();
+  const [order, setOrder] = useState({});
+  const [orderId, setOrderId] = useState({});
+  const [editInput, setEditInput] = useState(false);
+  const [editData, setEditData] = useState({});
+  const [editing, setEditing] = useState(false);
+  const { getOrderById, updateOrder } = useOrder();
   useEffect(() => {
-      const orderId = match.params.id
-    if(orderId) {
-        const orderData = getOrderById(orderId);
-        setOrder(orderData);
-    }
-  }, [getOrderById, match.params.id]);
+    setOrderId(match.params.id);
 
-  const handleClick = () => {};
+  }, [match.params.id]);
+
+  useEffect(() => {
+    if (orderId) {
+      const orderData = getOrderById(orderId);
+      orderData && setOrder(orderData);
+    }
+  }, [getOrderById, match.params.id, orderId]);
+
+  const handleClick = () => {
+    setEditInput(!editInput);
+    setEditData(order);
+    if (editInput) {
+      setOrder(editData);
+    }
+  };
+
+  const handleChange = event => {
+    const { name, value } = event.target;
+    setOrder({
+      ...order,
+      [name]: value
+    });
+  };
+
+  const handleOrderEdit = (event) => {
+      event.preventDefault();
+    setEditing(true);
+    orderService.editOrders(order, order._id).then(
+      order => {
+        updateOrder(order._id);
+        setEditing(false);
+        handleClick();
+        setOrderId(match.params.id)
+      },
+      error => {
+        setEditing(false);
+        console.log(error);
+      }
+    );
+  };
+
   return (
     <div className="main-wrapper">
       <BreadCrumb />
@@ -22,16 +64,37 @@ const OrderDetails = ({ match, data }) => {
         <div className="header-wrapper">
           <h2>Product Details Page</h2>{" "}
           <div className="action-text" onClick={handleClick}>
-            {" "}
-            Edit{" "}
+            {` ${editInput ? "Cancel" : "Edit"} `}
           </div>
         </div>
+        <form onSubmit={handleOrderEdit}>
         <div className="deails-wrapper">
-          <ListDetails label="Title" value="Test" />
-          <ListDetails label="Booking Date" value="Tes" />
-          <ListDetails label="Address" value="Test" />
-          <ListDetails label="Customer" value="Test" />
+          <ListDetails
+            label="Title"
+            value={order.title}
+            edit={editInput}
+            onHandleChange={handleChange}
+            type="text"
+            name="title"
+          />
+          <ListDetails
+            label="Booking Date"
+            value={order.bookingDate}
+            edit={editInput}
+            onHandleChange={handleChange}
+            type="date"
+            name="bookingDate"
+            dataType="date"
+          />
+          <ListDetails label="Address" value={order.address} dataType="address"/>
+          <ListDetails label="Customer" value={order.customer} dataType="customer"/>
         </div>
+        {editInput && (
+          <div className="edit-form">
+            <Button label={editing ? " ...submitting": "Submit"} disabled={editing}/>
+          </div>
+        )}
+        </form>
       </div>
     </div>
   );

@@ -218,3 +218,9 @@
     @include flex(flex, center, space-between);
     flex-direction: column;
   }
+  .edit-form{
+    .button-wrapper{
+      justify-content: flex-end;
+      margin-top: 70px;
+    }
+  }

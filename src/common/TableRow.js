@@ -1,6 +1,5 @@
 import React from 'react';
 import { Link } from "react-router-dom";
-import OrderDetails from '../components/OrderDetails';
 
 const TableRow = ({ rowData, headerList, rowIndex, onClickAction, showAction, link }) => {
     return(

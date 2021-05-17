@@ -6,7 +6,8 @@ const Table = ({
   tableBodyData,
   headerClassName = "",
   tableClassName = "",
-  onClickAction
+  onClickAction,
+  isLoading
 }) => {
   return (
     <table className={`tableContent ${tableClassName}`}>
@@ -23,7 +24,7 @@ const Table = ({
         </tr>
       </thead>
       <tbody className="">
-        {tableBodyData &&
+        {!isLoading ? tableBodyData &&
           tableBodyData.map((rowData, rowIndex) => {
             return <TableRow
               rowData={rowData}
@@ -31,9 +32,9 @@ const Table = ({
               headerList={headerList}
               key={rowIndex}
               onClickAction={onClickAction}
-              link={`/orders/${rowData.id}`}
+              link={`/orders/${rowData._id}`}
             />
-          })}
+          }): "...loading"}
       </tbody>
     </table>
   );

@@ -1,8 +1,8 @@
 import React from "react";
 
-const Button = ({ label }) => (
+const Button = ({ label, disabled }) => (
   <div className="button-wrapper" type="submit">
-    <button>{ label }</button>
+    <button disabled={disabled}>{ label }</button>
   </div>
 );
 
