@@ -26,9 +26,9 @@ const Orders = ({ onClickAction }) => {
 
   useEffect(() => {
     const page = paginate.page;
-    const total = orders.length;
+    const total = orders ? orders.length : 0;
     const totalPages = Math.ceil(total / LIMIT);
-    const paginatedOrder = orders.slice((page - 1) * LIMIT, page * LIMIT);
+    const paginatedOrder = orders ? orders.slice((page - 1) * LIMIT, page * LIMIT) : [];
     setPaginate({ page, total, totalPages, paginatedOrder });
   }, [paginate.page, orders]);
 

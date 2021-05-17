@@ -18,13 +18,16 @@ const TableRow = ({ rowData, headerList, rowIndex, link }) => {
                         <td className={header.className || "flex-basis-15"} key={columnIndex}>
                             {
                                 rowData.hasOwnProperty(headerKey) ?
-                                    rowData[headerKey].length > 0 ?
+                                    rowData[headerKey] ?
                                         header.link ?
                                             <Link to={link}>
                                                 { rowKeyData }
                                             </Link>
                                             :
-                                            rowKeyData
+                                            rowKeyData.length > 0 ?
+                                                rowKeyData
+                                                :
+                                                '-'
                                             :
                                             '-'
                                     :
