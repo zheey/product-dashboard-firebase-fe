@@ -1,6 +1,6 @@
-# Getting Started with Create React App
+# Getting Started with Product Dashboard
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This project allows a user to see their orders and edit them.
 
 ## Available Scripts
 
